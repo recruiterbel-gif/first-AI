@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ціна на встановлення прозора як вода | Онлайн-Калькулятор та Гарантія 24+ міс.</title>
+    <!-- Завантаження Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Використання шрифту Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Палітра згідно ТЗ: чиста вода + контрастний CTA */
+            --primary-blue: #0B4F6C; /* Темний/глибокий аквамарин */
+            --secondary-aqua: #1A936F; /* Основний аквамарин */
+            --cta-orange: #FF7F11; /* Контрастний помаранчевий для CTA */
+            --light-bg: #F0F9FF; /* Дуже світлий фон */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #333;
+            background-color: #ffffff;
+        }
+        /* Стилі для основних кнопок CTA */
+        .btn-cta-primary {
+            @apply bg-[var(--cta-orange)] text-white font-bold py-3 px-8 rounded-xl transition duration-300 shadow-xl hover:bg-orange-600 focus:outline-none focus:ring-4 focus:ring-orange-300 transform hover:scale-105;
+        }
+        .btn-cta-secondary {
+            @apply bg-white text-[var(--primary-blue)] border-2 border-[var(--primary-blue)] font-medium py-2 px-4 rounded-lg transition duration-300 hover:bg-gray-50 focus:outline-none;
+        }
+        /* Стилі для плаваючої кнопки на мобільному */
+        .floating-cta-panel {
+            @apply fixed bottom-0 left-0 right-0 z-50 bg-white shadow-[0_-5px_15px_rgba(0,0,0,0.1)] p-3 flex justify-around sm:hidden;
+        }
+        /* Стилі для кроків калькулятора */
+        .calculator-step {
+            @apply bg-white p-5 rounded-xl shadow-lg border-t-4 border-[var(--secondary-aqua)] mb-6;
+        }
+    </style>
+</head>
+<body class="antialiased scroll-smooth">
+
+    <!-- Sticky Floating CTA Panel (Mobile) -->
+    <div class="floating-cta-panel">
+        <button onclick="scrollToCalculator()" class="flex-1 btn-cta-primary text-sm mr-2 py-2">
+            Розрахувати Ціну
+        </button>
+        <button onclick="openFloatingMenu()" class="btn-cta-secondary p-2.5">
+            <!-- Іконка зв'язку -->
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        </button>
+    </div>
+
+    <!-- Floating Contact Menu Modal -->
+    <div id="floating-menu-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 transition-opacity items-end justify-center sm:items-center">
+        <div class="bg-white rounded-t-xl sm:rounded-xl shadow-2xl p-6 w-full max-w-md transform translate-y-0 transition-transform duration-300">
+            <h3 class="text-xl font-bold mb-4 text-[var(--primary-blue)]">Оберіть зручний спосіб зв'язку:</h3>
+            <div class="space-y-3">
+                <a href="tel:0800123456" class="flex items-center btn-cta-secondary w-full justify-center">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                    0 (800) 123-45-67 (Дзвінок)
+                </a>
+                <a href="tg://resolve?domain=experts" target="_blank" class="flex items-center bg-blue-500 text-white font-medium py-3 px-4 rounded-lg justify-center transition hover:bg-blue-600">
+                    <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.18 8.24l-6.84 5.38c-.35.25-.8.14-.96-.28l-.94-2.82c-.07-.22 0-.46.16-.62l7.2-6.52c.2-.18.49-.15.65.05.15.2.13.48-.05.65zM8.33 14.73l-.22.68c-.16.5.34.98.85.74l2.58-1.22 3.65-3.59.84.28-4.22 4.07z"/></svg>
+                    Telegram
+                </a>
+                <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="flex items-center bg-purple-600 text-white font-medium py-3 px-4 rounded-lg justify-center transition hover:bg-purple-700">
+                    <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.17 14.17h-1.6c-.3 0-.54-.15-.7-.41l-2.03-3.47-.46.46v2.42c0 .41-.33.75-.75.75H8.75c-.41 0-.75-.34-.75-.75V8.83c0-.41.34-.75.75-.75h1.6c.3 0 .54.15.7.41l2.03 3.47.46-.46V8.83c0-.41.33-.75.75-.75h1.59c.41 0 .75.34.75.75v7.34c0 .41-.34.75-.75.75z"/></svg>
+                    Viber
+                </a>
+            </div>
+            <button onclick="closeModal('floating-menu-modal')" class="mt-4 text-gray-500 hover:text-gray-700 w-full font-medium">Закрити</button>
+        </div>
+    </div>
+
+
+    <!-- Header (Top Bar & Main Bar) -->
+    <header class="bg-white shadow-md sticky top-0 z-40">
+        <!-- Top Bar -->
+        <div class="bg-gray-50 text-gray-600 text-xs py-2 hidden sm:block">
+            <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+                <!-- Контакти/Графік -->
+                <div class="flex items-center space-x-4">
+                    <span>Пн-Пт 9:00–18:00</span>
+                    <a href="tel:0800123456" class="text-sm font-semibold text-[var(--primary-blue)]">0 (800) 123-45-67</a>
+                </div>
+                <!-- УТП та CTA -->
+                <div class="flex items-center space-x-6">
+                    <span class="font-medium text-[var(--secondary-aqua)]">Гарантія 24+ міс. на монтаж</span>
+                    <button onclick="scrollToFinalCTA()" class="text-[var(--cta-orange)] font-semibold hover:underline">
+                        Дзвінок за 5 хвилин
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Bar -->
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Логотип -->
+            <a href="#" class="flex items-center space-x-2">
+                <svg class="w-8 h-8 text-[var(--secondary-aqua)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm-9-9a2.4 2.4 0 012.4-2.4"></path></svg>
+                <span class="text-xl font-extrabold text-[var(--primary-blue)]">PURE-INSTALL</span>
+            </a>
+
+            <!-- Головне Меню (Desktop) -->
+            <nav class="hidden lg:flex space-x-6 text-[var(--primary-blue)] font-medium">
+                <a href="#calculator" class="hover:text-[var(--secondary-aqua)] transition">Каталог Фільтрів</a>
+                <a href="#services" class="hover:text-[var(--secondary-aqua)] transition">Послуги та Ціни</a>
+                <a href="#service-package" class="hover:text-[var(--secondary-aqua)] transition">Обслуговування (Сервіс)</a>
+                <a href="#guarantees" class="hover:text-[var(--secondary-aqua)] transition">Про Компанію</a>
+                <a href="#faq" class="hover:text-[var(--secondary-aqua)] transition">База Знань/FAQ</a>
+            </nav>
+
+            <!-- Критичний CTA та Іконка (Desktop) -->
+            <div class="hidden sm:flex items-center space-x-4">
+                <button onclick="scrollToCalculator()" class="btn-cta-primary text-sm px-6 py-2.5">
+                    Розрахувати Вартість
+                </button>
+                <!-- Іконка "Зворотний зв'язок" (замість кошика) -->
+                <button onclick="openFloatingMenu()" class="text-[var(--primary-blue)] hover:text-[var(--cta-orange)] transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg text-[var(--primary-blue)]">
+                <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu (Dropdown) -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white px-4 pb-4 border-t border-gray-100">
+            <nav class="flex flex-col space-y-2 text-[var(--primary-blue)] font-medium">
+                <a href="#calculator" class="block py-2 hover:bg-gray-50 rounded transition">Каталог Фільтрів</a>
+                <a href="#services" class="block py-2 hover:bg-gray-50 rounded transition">Послуги та Ціни</a>
+                <a href="#service-package" class="block py-2 hover:bg-gray-50 rounded transition">Обслуговування (Сервіс)</a>
+                <a href="#guarantees" class="block py-2 hover:bg-gray-50 rounded transition">Про Компанію</a>
+                <a href="#faq" class="block py-2 hover:bg-gray-50 rounded transition">База Знань/FAQ</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. Hero Section (Перший Екран) -->
+        <section class="bg-[var(--light-bg)] py-16 sm:py-24 text-center">
+            <div class="max-w-5xl mx-auto px-4">
+                <h1 class="text-4xl sm:text-6xl font-extrabold text-[var(--primary-blue)] leading-tight mb-4">
+                    Ціна на встановлення <span class="text-[var(--secondary-aqua)]">прозора як вода</span>
+                </h1>
+                <p class="text-xl text-gray-600 mb-8">
+                    Професійний монтаж систем очищення води «під ключ» з гарантією до 24+ місяців.
+                </p>
+                <button onclick="scrollToCalculator()" class="btn-cta-primary text-xl mb-12">
+                    Розрахувати Фінальну Вартість
+                </button>
+                
+                <!-- Іконки Переваг -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                    <div class="text-[var(--primary-blue)]">
+                        <svg class="w-8 h-8 mx-auto mb-1 text-[var(--secondary-aqua)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.002 12.002 0 0012 21.056A12.002 12.002 0 0020.618 7.984z"></path></svg>
+                        <span class="font-bold text-sm">24+ Міс. Гарантії</span>
+                    </div>
+                    <div class="text-[var(--primary-blue)]">
+                        <svg class="w-8 h-8 mx-auto mb-1 text-[var(--secondary-aqua)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span class="font-bold text-sm">Монтаж за 60 хвилин</span>
+                    </div>
+                    <div class="text-[var(--primary-blue)]">
+                        <svg class="w-8 h-8 mx-auto mb-1 text-[var(--secondary-aqua)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                        <span class="font-bold text-sm">Дзвінок за 5 хвилин</span>
+                    </div>
+                    <div class="text-[var(--primary-blue)]">
+                        <svg class="w-8 h-8 mx-auto mb-1 text-[var(--secondary-aqua)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.152A1.495 1.495 0 0112 2s.951.152 1.401.598l1.547 4.67 5.094.01a1.496 1.496 0 01.884 2.57l-4.136 3.01 1.583 4.81a1.5 1.5 0 01-2.31 1.68l-4.226-3.08-4.226 3.08a1.5 1.5 0 01-2.31-1.68l1.583-4.81-4.136-3.01a1.496 1.496 0 01.884-2.57l5.094-.01 1.547-4.67A1.495 1.495 0 0111.049 2.152z"></path></svg>
+                        <span class="font-bold text-sm">Сервіс у Подарунок*</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Блок «Проблема/Потреба» -->
+        <section class="py-16 sm:py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-3xl font-bold text-[var(--primary-blue)] mb-10 text-center">Чи Знайомі Вам Ці Проблеми?</h2>
+                <div class="grid md:grid-cols-4 gap-6 text-center">
+                    <div class="p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <svg class="w-10 h-10 mx-auto mb-3 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        <p class="font-medium">Накип на чайнику та техніці (жорсткість).</p>
+                    </div>
+                    <div class="p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <svg class="w-10 h-10 mx-auto mb-3 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21H6.737a2 2 0 01-1.789-2.894l3.5-7A2 2 0 0110.737 10h4.526z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10V3"></path></svg>
+                        <p class="font-medium">Неприємний смак чи запах води.</p>
+                    </div>
+                    <div class="p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <svg class="w-10 h-10 mx-auto mb-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        <p class="font-medium">Хімічні домішки (хлор, іржа, пісок).</p>
+                    </div>
+                    <div class="p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <svg class="w-10 h-10 mx-auto mb-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3 .895 3 2s-1.343 2-3 2-3-.895-3-2 1.343-2 3-2zM4 16h16"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16s1-1 4-1 5 2 8 2 4-1 4-1M4 16l-1 4m20-4l1 4"></path></svg>
+                        <p class="font-medium">Побоювання щодо важких металів та бактерій.</p>
+                    </div>
+                </div>
+                <div class="mt-10 text-center">
+                    <button onclick="scrollToCalculator()" class="btn-cta-secondary px-8">Дізнайтеся, який фільтр потрібен саме вам</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Блок «Наші Основні Послуги» -->
+        <section id="services" class="py-16 sm:py-24 bg-[var(--light-bg)]">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-3xl font-bold text-[var(--primary-blue)] mb-12 text-center">Наші Основні Послуги</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Service 1: Встановлення -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-[var(--secondary-aqua)]">
+                        <h3 class="text-2xl font-bold mb-2 text-[var(--primary-blue)]">Встановлення Систем</h3>
+                        <p class="text-gray-600">Професійний монтаж зворотного осмосу, проточних та магістральних фільтрів під ключ за 60 хвилин.</p>
+                        <button onclick="scrollToCalculator()" class="text-[var(--cta-orange)] font-medium mt-3 hover:underline">Розрахувати ціну &rarr;</button>
+                    </div>
+                    <!-- Service 2: Обслуговування -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-[var(--secondary-aqua)]">
+                        <h3 class="text-2xl font-bold mb-2 text-[var(--primary-blue)]">Обслуговування та Заміна Фільтрів</h3>
+                        <p class="text-gray-600">Регламентна заміна картриджів, дезінфекція та контроль якості води (TDS-метр).</p>
+                        <a href="#service-package" class="text-[var(--cta-orange)] font-medium mt-3 hover:underline">Деталі сервісу &rarr;</a>
+                    </div>
+                    <!-- Service 3: Діагностика -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-[var(--secondary-aqua)]">
+                        <h3 class="text-2xl font-bold mb-2 text-[var(--primary-blue)]">Діагностика та Ремонт</h3>
+                        <p class="text-gray-600">Швидкий виїзд майстра для вирішення проблем з протіканням, тиском або насосом.</p>
+                        <button onclick="scrollToFinalCTA()" class="text-[var(--cta-orange)] font-medium mt-3 hover:underline">Замовити дзвінок &rarr;</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Блок «Онлайн-Калькулятор» (Ключовий конверсійний блок) -->
+        <section id="calculator" class="py-16 sm:py-24 bg-white">
+            <div class="max-w-4xl mx-auto px-4">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-[var(--primary-blue)] mb-4 text-center">Розрахуйте Фінальну Вартість Монтажу За 1 Хвилину</h2>
+                <p class="text-center text-md text-[var(--secondary-aqua)] font-semibold mb-8">
+                    Жодних прихованих платежів. Ціна, розрахована на сайті, є фінальною та гарантовано незмінною.
+                </p>
+
+                <div class="bg-gray-50 p-6 sm:p-8 rounded-xl shadow-2xl">
+                    <form id="calc-form">
+                        <!-- Крок 1: Тип Обладнання -->
+                        <div class="calculator-step" id="step-1">
+                            <h3 class="text-xl font-bold mb-4 text-[var(--primary-blue)]">Крок 1: Тип Послуги та Обладнання</h3>
+                            <div class="space-y-3">
+                                <label class="block p-3 border border-gray-300 rounded-lg cursor-pointer hover:border-[var(--secondary-aqua)] transition">
+                                    <input type="radio" name="system_type" value="ro" data-price-equipment="4000" data-price-work="1400" required>
+                                    <span class="ml-3 font-semibold">Зворотний Осмос (РО):</span> <span class="text-gray-600">від 4000 грн (Обладнання) + 1400 грн (Робота)</span>
+                                </label>
+                                <label class="block p-3 border border-gray-300 rounded-lg cursor-pointer hover:border-[var(--secondary-aqua)] transition">
+                                    <input type="radio" name="system_type" value="proto" data-price-equipment="3000" data-price-work="1000">
+                                    <span class="ml-3 font-semibold">Проточний фільтр (3-4 ступені):</span> <span class="text-gray-600">від 3000 грн (Обладнання) + 1000 грн (Робота)</span>
+                                </label>
+                                <label class="block p-3 border border-gray-300 rounded-lg cursor-pointer hover:border-[var(--secondary-aqua)] transition">
+                                    <input type="radio" name="system_type" value="magistral" data-price-equipment="2000" data-price-work="700">
+                                    <span class="ml-3 font-semibold">Магістральний фільтр (1 колба):</span> <span class="text-gray-600">від 2000 грн (Обладнання) + 700 грн (Робота)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Крок 2: Додаткові Роботи -->
+                        <div class="calculator-step" id="step-2">
+                            <h3 class="text-xl font-bold mb-4 text-[var(--primary-blue)]">Крок 2: Додаткові Роботи (Опційно)</h3>
+                            <div class="space-y-3">
+                                <label class="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:border-[var(--secondary-aqua)] transition">
+                                    <input type="checkbox" name="option_pipe_cut" value="450" class="w-5 h-5 text-[var(--secondary-aqua)] rounded">
+                                    <span class="ml-3 font-semibold">Врізка в металеві труби:</span> <span class="ml-auto text-gray-600">+ 450 грн</span>
+                                </label>
+                                <label class="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:border-[var(--secondary-aqua)] transition">
+                                    <input type="checkbox" name="option_pressure_reducer" value="900" class="w-5 h-5 text-[var(--secondary-aqua)] rounded">
+                                    <span class="ml-3 font-semibold">Встановлення редуктора тиску (Робота + Матеріал):</span> <span class="ml-auto text-gray-600">+ 900 грн</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Крок 3: Результат та Upsell -->
+                        <div class="calculator-step" id="step-3">
+                            <h3 class="text-xl font-bold mb-4 text-[var(--primary-blue)]">Крок 3: Ваш Результат</h3>
+                            
+                            <!-- Підсумок ціни -->
+                            <div class="text-lg bg-[var(--light-bg)] p-4 rounded-lg mb-4">
+                                <p class="flex justify-between mb-2">Базова ціна обладнання: <span id="price-equipment" class="font-bold">0 грн</span></p>
+                                <p class="flex justify-between mb-2">Вартість монтажних робіт: <span id="price-work" class="font-bold">0 грн</span></p>
+                                <p class="flex justify-between mb-2 border-t pt-2">Додаткові роботи: <span id="price-options" class="font-bold">0 грн</span></p>
+                                <p class="flex justify-between text-2xl font-extrabold text-[var(--cta-orange)] pt-3 border-t-2 border-dashed border-[var(--primary-blue)]">
+                                    Загальна Фінальна Сума: <span id="price-total">0 грн</span>
+                                </p>
+                            </div>
+
+                            <!-- Upsell-опція -->
+                            <label class="flex items-center p-3 rounded-lg cursor-pointer bg-green-100 border-2 border-green-500 shadow-md">
+                                <input type="checkbox" name="option_premium_service" value="0" class="w-5 h-5 text-green-600 rounded">
+                                <span class="ml-3 font-semibold text-green-800">Акція: Додати Premium-Сервіс на 12 місяців!</span>
+                                <span class="ml-auto text-green-700 font-bold">У ПОДАРУНОК!</span>
+                            </label>
+                        </div>
+
+                        <!-- CTA (Захоплення ліда) -->
+                        <div class="mt-8">
+                            <h3 class="text-2xl font-bold mb-4 text-[var(--primary-blue)] text-center">Зафіксуйте Ціну та Замовте Монтаж</h3>
+                            <input type="text" name="name" placeholder="Ваше ім'я *" required class="w-full p-4 mb-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--secondary-aqua)]">
+                            <input type="tel" name="phone" placeholder="Телефон *" required class="w-full p-4 mb-5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--secondary-aqua)]">
+                            <button type="submit" class="btn-cta-primary w-full text-xl">
+                                Зафіксувати Ціну та Замовити
+                            </button>
+                            <p id="calc-message" class="text-center mt-4 text-[var(--secondary-aqua)] font-medium hidden"></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Блок «Сервіс та Обслуговування» (Retention) -->
+        <section id="service-package" class="py-16 sm:py-24 bg-[var(--light-bg)]">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-3xl font-bold text-[var(--primary-blue)] mb-4 text-center">Сервісне Обслуговування: Забудьте Про Турботи на 1 Рік</h2>
+                <p class="text-center text-lg text-gray-600 mb-12">
+                    Це не просто заміна картриджів. Це комплексний чек-ап вашої системи, що забезпечує стабільну якість води.
+                </p>
+                <div class="grid md:grid-cols-4 gap-6 text-center">
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-green-500">
+                        <svg class="w-10 h-10 mx-auto mb-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.002 12.002 0 0012 21.056A12.002 12.002 0 0020.618 7.984z"></path></svg>
+                        <h4 class="font-bold text-[var(--primary-blue)]">Контроль якості</h4>
+                        <p class="text-sm text-gray-600">Перевірка води TDS-метром (до/після фільтра) при кожному виїзді.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-green-500">
+                        <svg class="w-10 h-10 mx-auto mb-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M10 20.547a2.998 2.998 0 00.51 1.454A2.998 2.998 0 0012 22.955a2.998 2.998 0 001.49-.954 2.998 2.998 0 00.51-1.454m-4.5 0a2.998 2.998 0 00-1.454-.51 2.998 2.998 0 00-1.046-1.99 2.998 2.998 0 001.454-.51M12 4.045c-2.438 0-4.43 1.96-4.956 4.417-1.332.336-2.585.83-3.754 1.488A2.998 2.998 0 002.045 12a2.998 2.998 0 00.867 1.955c1.169.658 2.422 1.152 3.754 1.488C7.57 18.04 9.562 20.005 12 20.005s4.43-1.96 4.956-4.417c1.332-.336 2.585-.83 3.754-1.488A2.998 2.998 0 0021.955 12a2.998 2.998 0 00-.867-1.955c-1.169-.658-2.422-1.152-3.754-1.488C16.43 5.995 14.438 4.04 12 4.04z"></path></svg>
+                        <h4 class="font-bold text-[var(--primary-blue)]">Професійний догляд</h4>
+                        <p class="text-sm text-gray-600">Дезінфекція системи та змащування ущільнювальних кілець.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-green-500">
+                        <svg class="w-10 h-10 mx-auto mb-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0h6"></path></svg>
+                        <h4 class="font-bold text-[var(--primary-blue)]">Технічний контроль</h4>
+                        <p class="text-sm text-gray-600">Перевірка тиску в накопичувальному бачку та на вході в систему.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-green-500">
+                        <svg class="w-10 h-10 mx-auto mb-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.928a2 2 0 012.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                        <h4 class="font-bold text-[var(--primary-blue)]">Нагадування</h4>
+                        <p class="text-sm text-gray-600">Індивідуальний графік обслуговування, щоб ви ніколи не забули про заміну.</p>
+                    </div>
+                </div>
+                <div class="mt-12 text-center">
+                    <button onclick="scrollToFinalCTA()" class="btn-cta-secondary px-8 text-lg">Замовити Сервісне Обслуговування</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Блок «Наші Гарантії та Професіоналізм» (Trust) -->
+        <section id="guarantees" class="py-16 sm:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-3xl font-bold text-[var(--primary-blue)] mb-12 text-center">Чому варто довірити установку нам? 4 Гарантії Надійності</h2>
+                <div class="grid md:grid-cols-4 gap-6">
+                    <div class="p-6 rounded-xl border-2 border-[var(--primary-blue)] shadow-md">
+                        <h4 class="text-xl font-bold mb-2 text-[var(--cta-orange)]">Якість Монтажу</h4>
+                        <p class="text-gray-700">Гарантія на всі монтажні роботи — **24 місяці**. Ми відповідаємо за свою роботу.</p>
+                    </div>
+                    <div class="p-6 rounded-xl border-2 border-[var(--primary-blue)] shadow-md">
+                        <h4 class="text-xl font-bold mb-2 text-[var(--cta-orange)]">Збереження Гарантії Виробника</h4>
+                        <p class="text-gray-700">Наш офіційний монтаж 100% зберігає офіційну гарантію на ваш фільтр.</p>
+                    </div>
+                    <div class="p-6 rounded-xl border-2 border-[var(--primary-blue)] shadow-md">
+                        <h4 class="text-xl font-bold mb-2 text-[var(--cta-orange)]">Експертна Команда</h4>
+                        <p class="text-gray-700">Лише професійні майстри, які проходять регулярну сертифікацію.</p>
+                    </div>
+                    <div class="p-6 rounded-xl border-2 border-[var(--primary-blue)] shadow-md">
+                        <h4 class="text-xl font-bold mb-2 text-[var(--cta-orange)]">Документальне Підтвердження</h4>
+                        <p class="text-gray-700">Офіційний договір, акт виконаних робіт та гарантійний талон.</p>
+                    </div>
+                </div>
+                <div class="mt-10 text-center">
+                    <a href="#" class="text-[var(--secondary-aqua)] font-semibold hover:underline">Переглянути сертифікати та дозволи &rarr;</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Блок «Нам Довіряють: Відгуки» (Placeholder for real data) -->
+        <section class="py-16 sm:py-24 bg-[var(--light-bg)]">
+             <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-3xl font-bold text-[var(--primary-blue)] mb-12 text-center">Нам Довіряють: Реальні Відгуки Клієнтів</h2>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- Відгук 1: Швидкість -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-[var(--cta-orange)]">
+                        <p class="italic text-gray-700">"Приїхали за годину, як обіцяли! Монтаж зайняв менше 60 хвилин. Справжні професіонали."</p>
+                        <p class="mt-4 font-semibold text-[var(--primary-blue)]">— Андрій П. (Швидкість)</p>
+                    </div>
+                    <!-- Відгук 2: Прозорість Ціни -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-[var(--cta-orange)]">
+                        <p class="italic text-gray-700">"Ціна, розрахована на сайті в калькуляторі, не змінилася! Жодних сюрпризів. Дякую за прозорість."</p>
+                        <p class="mt-4 font-semibold text-[var(--primary-blue)]">— Марія Р. (Прозорість)</p>
+                    </div>
+                    <!-- Відгук 3: Якість Монтажу -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-[var(--cta-orange)]">
+                        <p class="italic text-gray-700">"Все зроблено акуратно, без протікань, шланги заховані. Якість монтажу на 5+. Гарантія 2 роки це супер."</p>
+                        <p class="mt-4 font-semibold text-[var(--primary-blue)]">— Іван В. (Якість)</p>
+                    </div>
+                </div>
+                <div class="mt-10 text-center">
+                    <a href="#" class="text-[var(--secondary-aqua)] font-semibold hover:underline">Переглянути всі відгуки на Google Maps &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 7. Блок «База Знань / FAQ» -->
+        <section id="faq" class="py-16 sm:py-24 bg-white">
+            <div class="max-w-4xl mx-auto px-4">
+                <h2 class="text-3xl font-bold text-[var(--primary-blue)] mb-12 text-center">База Знань / FAQ: Експертні Відповіді</h2>
+
+                <!-- Прев'ю Статей -->
+                <div class="grid md:grid-cols-3 gap-4 mb-10">
+                    <a href="#" class="p-4 bg-[var(--light-bg)] rounded-lg shadow-sm hover:shadow-md transition">
+                        <h4 class="font-bold text-[var(--primary-blue)]">Накип і Жорсткість</h4>
+                        <p class="text-sm text-gray-600">Як осмос вирішує проблему накипу та подовжує термін служби техніки.</p>
+                    </a>
+                    <a href="#" class="p-4 bg-[var(--light-bg)] rounded-lg shadow-sm hover:shadow-md transition">
+                        <h4 class="font-bold text-[var(--primary-blue)]">Хлор та Іржа</h4>
+                        <p class="text-sm text-gray-600">Які саме домішки усувають наші фільтри: хлор, пісок, важкі метали.</p>
+                    </a>
+                    <a href="#" class="p-4 bg-[var(--light-bg)] rounded-lg shadow-sm hover:shadow-md transition">
+                        <h4 class="font-bold text-[var(--primary-blue)]">Як Читати TDS-Метр</h4>
+                        <p class="text-sm text-gray-600">Що таке TDS-показник і як майстер контролює якість води під час сервісу.</p>
+                    </a>
+                </div>
+
+                <!-- FAQ (Акордеон) -->
+                <div class="space-y-3">
+                    <details class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <summary class="font-semibold text-[var(--primary-blue)] cursor-pointer">1. Як часто міняти картриджі?</summary>
+                        <p class="mt-2 text-gray-700">Для систем зворотного осмосу: пре-фільтри (3 шт.) — кожні 3-6 місяців, пост-фільтри та мінералізатор — кожні 12 місяців, мембрана — раз на 24-36 місяців.</p>
+                    </details>
+                    <details class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <summary class="font-semibold text-[var(--primary-blue)] cursor-pointer">2. Скільки триває установка?</summary>
+                        <p class="mt-2 text-gray-700">Стандартний монтаж системи зворотного осмосу займає близько 60 хвилин.</p>
+                    </details>
+                    <details class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <summary class="font-semibold text-[var(--primary-blue)] cursor-pointer">3. Що робити, якщо протікає?</summary>
+                        <p class="mt-2 text-gray-700">Завдяки нашій 24-місячній гарантії на монтажні роботи, ми забезпечуємо швидкий виїзд та усунення несправності протягом 24 годин.</p>
+                    </details>
+                </div>
+
+                <div class="mt-10 text-center">
+                    <button onclick="scrollToFinalCTA()" class="btn-cta-primary text-lg px-8">Поставити питання єксперту</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Блок «Фінальний Call-to-Action» -->
+        <section id="final-cta" class="py-16 sm:py-24 bg-[var(--primary-blue)]">
+            <div class="max-w-xl mx-auto px-4 text-white text-center">
+                <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">Отримайте Консультацію Нашого Експерта</h2>
+                <p class="text-lg font-semibold mb-8 text-[var(--secondary-aqua)]">
+                    Гарантований зворотний дзвінок протягом 5 хвилин!
+                </p>
+                <form id="form-final-cta">
+                    <input type="text" name="name" placeholder="Ваше ім'я *" required class="w-full p-4 mb-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--cta-orange)] text-gray-900">
+                    <input type="tel" name="phone" placeholder="Телефон *" required class="w-full p-4 mb-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--cta-orange)] text-gray-900">
+                    <select name="messenger" class="w-full p-4 mb-6 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--cta-orange)] text-gray-900">
+                        <option value="">Або оберіть месенджер для відповіді</option>
+                        <option value="telegram">Telegram</option>
+                        <option value="viber">Viber</option>
+                        <option value="whatsapp">WhatsApp</option>
+                    </select>
+                    <button type="submit" class="btn-cta-primary w-full text-xl py-4">
+                        Передзвоніть Мені (Гарантія 5 Хвилин)
+                    </button>
+                    <p id="final-cta-message" class="text-center mt-4 text-white font-medium hidden"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- 9. Footer (Футер) -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Col 1: Про Компанію -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4 text-[var(--secondary-aqua)]">PURE-INSTALL</h4>
+                    <p class="text-gray-400 text-sm mb-4">Експертний монтаж та прозорі ціни. Гарантія на роботу 24+ місяці.</p>
+                    <a href="#" class="text-gray-400 hover:text-white block text-sm">Гарантійні умови</a>
+                    <a href="#" class="text-gray-400 hover:text-white block text-sm">Політика конфіденційності</a>
+                </div>
+                <!-- Col 2: Наші Послуги -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4 text-[var(--secondary-aqua)]">Послуги</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#calculator" class="text-gray-400 hover:text-white">Онлайн-Калькулятор</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white">Встановлення систем</a></li>
+                        <li><a href="#service-package" class="text-gray-400 hover:text-white">Сервісні Пакети</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white">Діагностика та Ремонт</a></li>
+                    </ul>
+                </div>
+                <!-- Col 3: База Знань -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4 text-[var(--secondary-aqua)]">База Знань</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#faq" class="text-gray-400 hover:text-white">FAQ (Часті Запитання)</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Статті про воду</a></li>
+                        <li><a href="#guarantees" class="text-gray-400 hover:text-white">Сертифікати</a></li>
+                    </ul>
+                </div>
+                <!-- Col 4: Контакти та Соц. Мережі -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4 text-[var(--secondary-aqua)]">Контакти</h4>
+                    <p class="font-extrabold text-2xl text-[var(--cta-orange)] mb-2">0 (800) 123-45-67</p>
+                    <p class="text-sm text-gray-400">Email: office@pureinstall.ua</p>
+                    <p class="text-sm text-gray-400 mb-4">Графік: Пн-Пт, 9:00 - 18:00</p>
+                    
+                    <div class="flex space-x-4 mt-4">
+                        <a href="tg://resolve?domain=experts" target="_blank" class="text-gray-400 hover:text-[var(--secondary-aqua)] transition"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.18 8.24l-6.84 5.38c-.35.25-.8.14-.96-.28l-.94-2.82c-.07-.22 0-.46.16-.62l7.2-6.52c.2-.18.49-.15.65.05.15.2.13.48-.05.65zM8.33 14.73l-.22.68c-.16.5.34.98.85.74l2.58-1.22 3.65-3.59.84.28-4.22 4.07z"/></svg></a>
+                        <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="text-gray-400 hover:text-[var(--secondary-aqua)] transition"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.17 14.17h-1.6c-.3 0-.54-.15-.7-.41l-2.03-3.47-.46.46v2.42c0 .41-.33.75-.75.75H8.75c-.41 0-.75-.34-.75-.75V8.83c0-.41.34-.75.75-.75h1.6c.3 0 .54.15.7.41l2.03 3.47.46-.46V8.83c0-.41.33-.75.75-.75h1.59c.41 0 .75.34.75.75v7.34c0 .41-.34.75-.75.75z"/></svg></a>
+                        <a href="https://wa.me/380XXXXXXXXX" target="_blank" class="text-gray-400 hover:text-[var(--secondary-aqua)] transition"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12c0 3.12 1.53 5.92 3.92 7.5l-1.42 2.1c-.13.2.03.45.28.45h3.64c.22 0 .42-.1.54-.28l.84-1.26c.49.07 1.01.11 1.54.11 5.52 0 10-4.48 10-10S17.52 2 12 2zm.3 14.45c-.38.01-.76-.02-1.13-.07-.38-.05-.75-.12-1.11-.2-.36-.08-.7-.18-1.01-.31-.31-.13-.59-.28-.85-.45-.48-.34-1.24-1.1-1.24-2.12 0-.31.06-.61.18-.89.12-.28.28-.54.48-.79.2-.25.43-.48.69-.7.26-.22.54-.42.82-.6.44-.29.9-.53 1.38-.72.48-.19.98-.32 1.48-.41.5-.09 1-.13 1.5-.13 1.25 0 2.29.35 3.12 1.04.83.69 1.24 1.62 1.24 2.8s-.41 2.11-1.24 2.8c-.83.69-1.87 1.04-3.12 1.04-.54 0-1.08-.07-1.61-.22-.53-.15-1.04-.37-1.5-.66-.46-.29-.89-.6-1.28-.94z"/></svg></a>
+                    </div>
+                </div>
+            </div>
+            <div class="max-w-7xl mx-auto px-4 mt-8 pt-4 border-t border-gray-800 text-center text-sm text-gray-500">
+                &copy; 2025 "PURE-INSTALL". Усі права захищені.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Ініціалізація змінних
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const calcForm = document.getElementById('calc-form');
+        const finalCtaForm = document.getElementById('form-final-cta');
+        const floatingMenuModal = document.getElementById('floating-menu-modal');
+
+        // Елементи результату калькулятора
+        const priceEquipment = document.getElementById('price-equipment');
+        const priceWork = document.getElementById('price-work');
+        const priceOptions = document.getElementById('price-options');
+        const priceTotal = document.getElementById('price-total');
+        const calcMessage = document.getElementById('calc-message');
+        const finalCtaMessage = document.getElementById('final-cta-message');
+
+        // =======================================================================
+        // 1. Mobile Menu Toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = mobileMenuBtn.querySelector('svg path');
+            if (mobileMenu.classList.contains('hidden')) {
+                // Відкрити
+                icon.setAttribute('d', 'M4 6h16M4 12h16m-7 6h7');
+            } else {
+                // Закрити
+                icon.setAttribute('d', 'M6 18L18 6M6 6l12 12');
+            }
+        });
+
+        // 2. Scroll Functions
+        function scrollToCalculator() {
+            document.getElementById('calculator').scrollIntoView({ behavior: 'smooth' });
+        }
+        function scrollToFinalCTA() {
+            document.getElementById('final-cta').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 3. Modal/Floating Menu Functions
+        function openFloatingMenu() {
+            floatingMenuModal.classList.remove('hidden');
+            floatingMenuModal.classList.add('flex');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+            document.getElementById(id).classList.remove('flex');
+            document.body.classList.remove('overflow-hidden');
+        }
+        
+        // =======================================================================
+        // 4. Calculator Logic
+        
+        function calculateTotal() {
+            const formData = new FormData(calcForm);
+            
+            // Крок 1: Базові ціни
+            const systemType = formData.get('system_type');
+            
+            let equipment = 0;
+            let work = 0;
+            
+            if (systemType) {
+                const selectedRadio = calcForm.querySelector(`input[name="system_type"][value="${systemType}"]`);
+                equipment = parseInt(selectedRadio.dataset.priceEquipment || 0);
+                work = parseInt(selectedRadio.dataset.priceWork || 0);
+            }
+
+            // Крок 2: Додаткові роботи
+            let options = 0;
+            if (formData.get('option_pipe_cut')) {
+                options += 450;
+            }
+            if (formData.get('option_pressure_reducer')) {
+                options += 900;
+            }
+
+            // Крок 3: Результат
+            const total = equipment + work + options;
+            
+            // Оновлення UI
+            priceEquipment.textContent = `${equipment.toLocaleString('uk-UA')} грн`;
+            priceWork.textContent = `${work.toLocaleString('uk-UA')} грн`;
+            priceOptions.textContent = `${options.toLocaleString('uk-UA')} грн`;
+            priceTotal.textContent = `${total.toLocaleString('uk-UA')} грн`;
+        }
+
+        // Слухачі подій для перерахунку при зміні будь-якого поля
+        calcForm.addEventListener('change', calculateTotal);
+        
+        // Викликати при завантаженні для початкової ініціалізації
+        window.addEventListener('load', calculateTotal);
+
+
+        // 5. Form Submission Handling (Simulated)
+        const handleSubmission = (event, form, messageElement) => {
+            event.preventDefault();
+            
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            
+            console.log("Заявка надіслана:", data);
+
+            // Відображення повідомлення про успіх
+            messageElement.textContent = form.id === 'calc-form' 
+                ? "Ціну зафіксовано! Ми вже опрацьовуємо ваше замовлення та зв'яжемося за 5 хвилин."
+                : "Заявка на консультацію успішно надіслана! Наш експерт передзвонить за 5 хвилин.";
+            
+            messageElement.classList.remove('hidden');
+            messageElement.classList.add('block');
+            
+            form.reset();
+            
+            // Приховування повідомлення через 7 секунд
+            setTimeout(() => {
+                messageElement.classList.add('hidden');
+            }, 7000);
+        };
+
+        // Event Listeners for Forms
+        calcForm.addEventListener('submit', (e) => handleSubmission(e, calcForm, calcMessage));
+        finalCtaForm.addEventListener('submit', (e) => handleSubmission(e, finalCtaForm, finalCtaMessage));
+
+    </script>
+
+</body>
+</html>
